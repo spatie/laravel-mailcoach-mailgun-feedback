@@ -3,7 +3,9 @@
 namespace Spatie\MailgunFeedback\Tests;
 
 use CreateWebhookCallsTable;
+use Illuminate\Support\Facades\Route;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Spatie\EmailCampaigns\EmailCampaignsServiceProvider;
 use Spatie\MailgunFeedback\MailgunFeedbackServiceProvider;
 use Spatie\MailgunFeedback\MailgunWebhookConfig;
 use Spatie\WebhookClient\WebhookClientServiceProvider;
@@ -16,12 +18,15 @@ class TestCase extends Orchestra
 
         $this->withFactories(__DIR__ . '/../vendor/spatie/laravel-email-campaigns/tests/database/factories');
 
+        Route::emailCampaigns('email-campaigns');
+
         $this->setUpDatabase();
     }
 
     protected function getPackageProviders($app)
     {
         return [
+            EmailCampaignsServiceProvider::class,
             MailgunFeedbackServiceProvider::class,
         ];
     }
