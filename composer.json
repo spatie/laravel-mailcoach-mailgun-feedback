@@ -6,7 +6,6 @@
         "laravel-email-campaigns-mailgun-feedback"
     ],
     "homepage": "https://github.com/spatie/laravel-email-campaigns-mailgun-feedback",
-    "license": "MIT",
     "authors": [
         {
             "name": "Freek Van der Herten",
