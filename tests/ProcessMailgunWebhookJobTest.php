@@ -19,11 +19,9 @@ class ProcessMailgunWebhookJobTest extends TestCase
     {
         parent::setUp();
 
-        $stubContent = file_get_contents(__DIR__ .'/stubs/webhookContent.json');
-
         $this->webhookCall = WebhookCall::create([
             'name' => 'mailgun',
-            'payload' => json_decode($stubContent, true),
+            'payload' => $this->getStub('webhookContent'),
         ]);
 
         $this->campaignSend = factory(CampaignSend::class)->create([

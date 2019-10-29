@@ -26,25 +26,10 @@ class MailgunSignatureValidatorTest extends TestCase
 
     private function validParams(array $overrides = []): array
     {
-        return array_merge([
-            "signature" => [
-                "timestamp" => "1529006854",
-                "token" => "a8ce0edb2dd8301dee6c2405235584e45aa91d1e9f979f3de0",
-                "signature" => hash_hmac(
-                    'sha256',
-                    sprintf('%s%s', '1529006854', 'a8ce0edb2dd8301dee6c2405235584e45aa91d1e9f979f3de0'),
-                    $this->config->signingSecret
-                ),
-            ],
-            "event-data" => [
-                "event" => "opened",
-                "timestamp" => 1529006854.329574,
-                "id" => "DACSsAdVSeGpLid7TN03WA",
-            ],
-        ], $overrides);
+        return array_merge($this->addValidSignature([]), $overrides);
     }
 
-    /** @test * */
+    /** @test */
     public function it_requires_signature_data()
     {
         $request = new Request($this->validParams());
