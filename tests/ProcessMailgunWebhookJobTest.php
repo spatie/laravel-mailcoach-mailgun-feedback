@@ -44,18 +44,6 @@ class ProcessMailgunWebhookJobTest extends TestCase
     }
 
     /** @test */
-    public function it_only_saves_the_bounce_once()
-    {
-        $job = new ProcessMailgunWebhookJob($this->webhookCall);
-
-        $job->handle();
-        $job->handle();
-
-        $this->assertEquals(1, CampaignSendBounce::count());
-        $this->assertTrue($this->campaignSend->is(CampaignSendBounce::first()->campaignSend));
-    }
-
-    /** @test */
     public function it_only_saves_when_event_is_a_failure()
     {
         $data =$this->webhookCall->payload;
