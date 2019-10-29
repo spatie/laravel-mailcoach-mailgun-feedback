@@ -39,6 +39,8 @@ class TestCase extends Orchestra
             'database' => ':memory:',
             'prefix' => '',
         ]);
+
+        $app['config']->set('mail.driver', 'log');
     }
 
     protected function setUpDatabase()
