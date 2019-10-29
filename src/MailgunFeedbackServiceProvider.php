@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Skeleton;
+namespace Spatie\MailgunFeedback;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;

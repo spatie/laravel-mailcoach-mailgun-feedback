@@ -18,12 +18,14 @@
     "require": {
         "php": "^7.3",
         "illuminate/http": "^6.4",
+        "orchestra/testbench": "^4.3",
         "spatie/laravel-email-campaigns": "dev-master",
         "spatie/laravel-webhook-client": "^2.2"
     },
     "require-dev": {
         "symfony/var-dumper": "^4.3",
-        "phpunit/phpunit": "^8.2"
+        "phpunit/phpunit": "^8.2",
+        "ext-json": "*"
     },
     "autoload": {
         "psr-4": {
