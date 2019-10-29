@@ -1,4 +1,4 @@
-# Very short description of the package
+# Process feedback for email campaigns sent using Mailgun
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-email-campaigns-mailgun-feedback.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-email-campaigns-mailgun-feedback)
 [![Build Status](https://img.shields.io/travis/spatie/laravel-email-campaigns-mailgun-feedback/master.svg?style=flat-square)](https://travis-ci.org/spatie/laravel-email-campaigns-mailgun-feedback)
