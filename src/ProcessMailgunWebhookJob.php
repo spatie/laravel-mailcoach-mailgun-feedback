@@ -2,7 +2,6 @@
 
 namespace Spatie\MailgunFeedback;
 
-use App\Models\CampaignBounce;
 use Spatie\EmailCampaigns\Models\CampaignSend;
 use Spatie\WebhookClient\ProcessWebhookJob;
 

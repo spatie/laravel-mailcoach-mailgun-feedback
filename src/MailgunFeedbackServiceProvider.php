@@ -9,8 +9,6 @@ use Illuminate\Support\ServiceProvider;
 
 class MailgunFeedbackServiceProvider extends ServiceProvider
 {
-
-
     public function register()
     {
         Route::macro('mailgunFeedback', function (string $url) {
@@ -18,6 +16,5 @@ class MailgunFeedbackServiceProvider extends ServiceProvider
         });
 
         Event::listen(MessageSent::class, StoreTransportMessageId::class);
-
     }
 }

@@ -5,7 +5,6 @@ namespace Spatie\MailgunFeedback\Tests;
 use Illuminate\Http\Request;
 use Spatie\MailgunFeedback\MailgunSignatureValidator;
 use Spatie\MailgunFeedback\MailgunWebhookConfig;
-use Spatie\WebhookClient\WebhookConfig;
 
 class MailgunSignatureValidatorTest extends TestCase
 {

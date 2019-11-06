@@ -8,7 +8,6 @@ use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\EmailCampaigns\EmailCampaignsServiceProvider;
 use Spatie\MailgunFeedback\MailgunFeedbackServiceProvider;
 use Spatie\MailgunFeedback\MailgunWebhookConfig;
-use Spatie\WebhookClient\WebhookClientServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -61,7 +60,8 @@ class TestCase extends Orchestra
 
     public function addValidSignature(array $payloadContent = []): array
     {
-        return array_merge($payloadContent,
+        return array_merge(
+            $payloadContent,
             [
                 "signature" => [
                     "timestamp" => "1529006854",
@@ -77,6 +77,7 @@ class TestCase extends Orchestra
                     "timestamp" => 1529006854.329574,
                     "id" => "DACSsAdVSeGpLid7TN03WA",
                 ],
-            ]);
+            ]
+        );
     }
 }
