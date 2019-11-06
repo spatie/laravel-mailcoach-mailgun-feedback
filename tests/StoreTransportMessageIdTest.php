@@ -2,8 +2,10 @@
 
 namespace Spatie\MailgunFeedback\Tests;
 
+use Illuminate\Mail\Events\MessageSent;
 use Spatie\EmailCampaigns\Jobs\SendMailJob;
 use Spatie\EmailCampaigns\Models\CampaignSend;
+use Swift_Message;
 
 class StoreTransportMessageIdTest extends TestCase
 {
@@ -11,11 +13,15 @@ class StoreTransportMessageIdTest extends TestCase
     public function it_stores_the_message_id_from_the_transport()
     {
         $pendingSend = factory(CampaignSend::class)->create();
+        $message = new Swift_Message('Test', 'body');
+        $message->getHeaders()->addTextHeader('X-Mailgun-Message-ID', '1234');
 
-        dispatch(new SendMailJob($pendingSend));
+        event(new MessageSent($message, [
+            'campaignSend' => $pendingSend,
+        ]));
 
         tap($pendingSend->fresh(), function (CampaignSend $campaignSend) {
-            $this->assertNotNull($campaignSend->transport_message_id);
+            $this->assertEquals('1234', $campaignSend->transport_message_id);
         });
     }
 }
