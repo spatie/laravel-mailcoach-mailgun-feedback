@@ -12,6 +12,10 @@ class StoreTransportMessageId
             return;
         }
 
+        if (! $event->message->getHeaders()->has('X-Mailgun-Message-ID')) {
+            return;
+        }
+
         /** @var \Spatie\EmailCampaigns\Models\CampaignSend $campaignSend */
         $campaignSend = $event->data['campaignSend'];
 
