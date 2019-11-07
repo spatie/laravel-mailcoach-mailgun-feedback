@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to `laravel-email-campaigns-mailgun-feedback` will be documented in this file
+All notable changes to `laravel-mailcoach-mailgun-feedback` will be documented in this file
 
 ## 1.0.0 - 201X-XX-XX
 

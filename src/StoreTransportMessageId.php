@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\MailgunFeedback;
+namespace Spatie\MailCoachMailgunFeedback;
 
 use Illuminate\Mail\Events\MessageSent;
 
@@ -16,7 +16,7 @@ class StoreTransportMessageId
             return;
         }
 
-        /** @var \Spatie\EmailCampaigns\Models\CampaignSend $campaignSend */
+        /** @var \Spatie\MailCoach\Models\CampaignSend $campaignSend */
         $campaignSend = $event->data['campaignSend'];
 
         $transportMessageId = $event->message->getHeaders()->get('X-Mailgun-Message-ID')->getFieldBody();

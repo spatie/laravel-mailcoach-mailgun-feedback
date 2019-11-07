@@ -1,11 +1,11 @@
 {
-    "name": "spatie/laravel-email-campaigns-mailgun-feedback",
+    "name": "spatie/laravel-mailcoach-mailgun-feedback",
     "description": "Process feedback for email campaigns sent using Mailgun",
     "keywords": [
         "spatie",
-        "laravel-email-campaigns-mailgun-feedback"
+        "laravel-mailcoach-mailgun-feedback"
     ],
-    "homepage": "https://github.com/spatie/laravel-email-campaigns-mailgun-feedback",
+    "homepage": "https://github.com/spatie/laravel-mailcoach-mailgun-feedback",
     "authors": [
         {
             "name": "Freek Van der Herten",
@@ -14,11 +14,17 @@
             "role": "Developer"
         }
     ],
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../laravel-mailcoach"
+        }
+    ],
     "require": {
         "php": "^7.3",
         "illuminate/http": "^6.4",
         "orchestra/testbench": "^4.3",
-        "spatie/laravel-email-campaigns": "dev-master",
+        "spatie/laravel-mailcoach": "dev-master",
         "spatie/laravel-webhook-client": "^2.2"
     },
     "require-dev": {
@@ -29,12 +35,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Spatie\\MailgunFeedback\\": "src"
+            "Spatie\\MailCoachMailgunFeedback\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Spatie\\MailgunFeedback\\Tests\\": "tests"
+            "Spatie\\MailCoachMailgunFeedback\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -47,11 +53,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Spatie\\MailgunFeedback\\MailgunFeedbackServiceProvider"
-            ],
-            "aliases": {
-                "Skeleton": "Spatie\\MailgunFeedback\\MailgunFeedbackFacade"
-            }
+                "Spatie\\MailCoachMailgunFeedback\\MailCoachMailgunFeedbackServiceProvider"
+            ]
         }
     }
 }

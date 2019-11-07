@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\MailgunFeedback\Tests;
+namespace Spatie\MailCoachMailgunFeedback\Tests;
 
 use Illuminate\Support\Facades\Route;
 
@@ -10,7 +10,7 @@ class RouteTest extends TestCase
     {
         parent::setUp();
 
-        Route::mailgunFeedback('mailgun-feedback');
+        Route::MailCoachMailgunFeedback('mailgun-feedback');
     }
 
     /** @test */

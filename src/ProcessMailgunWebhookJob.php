@@ -1,8 +1,8 @@
 <?php
 
-namespace Spatie\MailgunFeedback;
+namespace Spatie\MailCoachMailgunFeedback;
 
-use Spatie\EmailCampaigns\Models\CampaignSend;
+use Spatie\MailCoach\Models\CampaignSend;
 use Spatie\WebhookClient\ProcessWebhookJob;
 
 class ProcessMailgunWebhookJob extends ProcessWebhookJob
@@ -12,7 +12,7 @@ class ProcessMailgunWebhookJob extends ProcessWebhookJob
         $payload = $this->webhookCall->payload;
         $eventData = $payload['event-data'];
 
-        /** @var \Spatie\EmailCampaigns\Models\CampaignSend $campaignSend */
+        /** @var \Spatie\MailCoach\Models\CampaignSend $campaignSend */
         $campaignSend = CampaignSend::findByTransportMessageId($eventData['id']);
 
         if (! $campaignSend) {

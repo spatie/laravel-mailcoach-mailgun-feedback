@@ -1,21 +1,21 @@
 # Process feedback for email campaigns sent using Mailgun
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-email-campaigns-mailgun-feedback.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-email-campaigns-mailgun-feedback)
-[![Build Status](https://img.shields.io/travis/spatie/laravel-email-campaigns-mailgun-feedback/master.svg?style=flat-square)](https://travis-ci.org/spatie/laravel-email-campaigns-mailgun-feedback)
-[![Quality Score](https://img.shields.io/scrutinizer/g/spatie/laravel-email-campaigns-mailgun-feedback.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/laravel-email-campaigns-mailgun-feedback)
-[![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-email-campaigns-mailgun-feedback.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-email-campaigns-mailgun-feedback)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-mailcoach-mailgun-feedback.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-mailcoach-mailgun-feedback)
+[![Build Status](https://img.shields.io/travis/spatie/laravel-mailcoach-mailgun-feedback/master.svg?style=flat-square)](https://travis-ci.org/spatie/laravel-mailcoach-mailgun-feedback)
+[![Quality Score](https://img.shields.io/scrutinizer/g/spatie/laravel-mailcoach-mailgun-feedback.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/laravel-mailcoach-mailgun-feedback)
+[![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-mailcoach-mailgun-feedback.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-mailcoach-mailgun-feedback)
 
-This package is an add on for [spatie/laravel-email-campaigns](https://github.com/spatie/laravel-email-campaigns) that can process the feedback given by Mailgun.
+This package is an add on for [spatie/laravel-mailcoach](https://github.com/spatie/laravel-mailcoach) that can process the feedback given by Mailgun.
 
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require spatie/laravel-email-campaigns-mailgun-feedback
+composer require spatie/laravel-mailcoach-mailgun-feedback
 ```
 
-Under the hood this package uses [spatie/laravel-webhook-client](https://github.com/spatie/laravel-email-campaigns) to process handle webhooks. You are required to publish its migration to create the `webhook_calls` table. You can skip this step if your project already uses the `laravel-webhook-client` package directly.
+Under the hood this package uses [spatie/laravel-webhook-client](https://github.com/spatie/laravel-mailcoach) to process handle webhooks. You are required to publish its migration to create the `webhook_calls` table. You can skip this step if your project already uses the `laravel-webhook-client` package directly.
 
 ```php
 php artisan vendor:publish --provider="Spatie\WebhookClient\WebhookClientServiceProvider" --tag="migrations"
@@ -44,7 +44,7 @@ In your `.env` you must add a key `MAILGUN_SIGNING_SECRET` with the Mailgun sign
 You must use this route macro somewhere in your routes file. Replace `'mailgun-feeback'` with the url you specified at Mailgun when setting up the webhook there.
 
 ```php
-Route::mailgunFeedback('mailgun-feedback');
+Route::MailCoachMailgunFeedback('mailgun-feedback');
 ```
 
 ## Usage

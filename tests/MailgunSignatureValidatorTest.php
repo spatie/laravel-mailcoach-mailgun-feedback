@@ -1,10 +1,10 @@
 <?php
 
-namespace Spatie\MailgunFeedback\Tests;
+namespace Spatie\MailCoachMailgunFeedback\Tests;
 
 use Illuminate\Http\Request;
-use Spatie\MailgunFeedback\MailgunSignatureValidator;
-use Spatie\MailgunFeedback\MailgunWebhookConfig;
+use Spatie\MailCoachMailgunFeedback\MailgunSignatureValidator;
+use Spatie\MailCoachMailgunFeedback\MailgunWebhookConfig;
 
 class MailgunSignatureValidatorTest extends TestCase
 {

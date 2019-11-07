@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\MailgunFeedback;
+namespace Spatie\MailCoachMailgunFeedback;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
