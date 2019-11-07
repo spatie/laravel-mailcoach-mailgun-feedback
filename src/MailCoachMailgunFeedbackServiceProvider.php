@@ -11,7 +11,7 @@ class MailCoachMailgunFeedbackServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        Route::macro('MailCoachMailgunFeedback', function (string $url) {
+        Route::macro('MailgunFeedback', function (string $url) {
             return Route::post($url, '\Spatie\MailCoachMailgunFeedback\MailgunWebhookController');
         });
 
