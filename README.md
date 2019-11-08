@@ -9,7 +9,7 @@ This package is an add on for [spatie/laravel-mailcoach](https://github.com/spat
 
 ### Documentation
 
-This package is documentented in the mailcoach docs.
+This package is documentented in [the mailcoach docs](https://mailcoach.app).
 
 ### Testing
 
