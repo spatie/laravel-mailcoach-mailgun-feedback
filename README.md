@@ -29,10 +29,10 @@ php artisan migrate
 
 At Mailgun you must [configure a new webhook](https://www.mailgun.com/blog/a-guide-to-using-mailguns-webhooks/).
 
-In the `email-campaigns` config file you must add this section.
+In the `mailcoach` config file you must add this section.
 
 ```php
-// in config/email-campaigns.php
+// in config/mailcoach.php
 
     'mailgun_feedback' => [
         'signing_secret' => env('MAILGUN_SIGNING_SECRET'),
