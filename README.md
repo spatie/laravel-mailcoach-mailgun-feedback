@@ -7,4 +7,3 @@ This package is an add on for [spatie/laravel-mailcoach](https://github.com/spat
 ## Documentation
 
 You can view all documentation on [the mailcoach site](https://mailcoach.app).
-
