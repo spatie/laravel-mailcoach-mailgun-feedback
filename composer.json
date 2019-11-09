@@ -5,7 +5,7 @@
         "spatie",
         "laravel-mailcoach-mailgun-feedback"
     ],
-    "homepage": "https://github.com/spatie/laravel-mailcoach-mailgun-feedback",
+    "homepage": "https://mailcoach.app",
     "authors": [
         {
             "name": "Freek Van der Herten",
