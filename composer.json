@@ -35,12 +35,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Spatie\\MailCoachMailgunFeedback\\": "src"
+            "Spatie\\MailcoachMailgunFeedback\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Spatie\\MailCoachMailgunFeedback\\Tests\\": "tests"
+            "Spatie\\MailcoachMailgunFeedback\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -53,7 +53,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Spatie\\MailCoachMailgunFeedback\\MailCoachMailgunFeedbackServiceProvider"
+                "Spatie\\MailcoachMailgunFeedback\\MailcoachMailgunFeedbackServiceProvider"
             ]
         }
     }

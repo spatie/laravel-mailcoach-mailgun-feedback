@@ -1,10 +1,10 @@
 <?php
 
-namespace Spatie\MailCoachMailgunFeedback\Tests;
+namespace Spatie\MailcoachMailgunFeedback\Tests;
 
-use Spatie\MailCoach\Models\CampaignSend;
-use Spatie\MailCoach\Models\CampaignSendBounce;
-use Spatie\MailCoachMailgunFeedback\ProcessMailgunWebhookJob;
+use Spatie\Mailcoach\Models\CampaignSend;
+use Spatie\Mailcoach\Models\CampaignSendBounce;
+use Spatie\MailcoachMailgunFeedback\ProcessMailgunWebhookJob;
 use Spatie\WebhookClient\Models\WebhookCall;
 
 class ProcessMailgunWebhookJobTest extends TestCase
@@ -12,7 +12,7 @@ class ProcessMailgunWebhookJobTest extends TestCase
     /** @var \Spatie\WebhookClient\Models\WebhookCall */
     private $webhookCall;
 
-    /** @var \Spatie\MailCoach\Models\CampaignSend */
+    /** @var \Spatie\Mailcoach\Models\CampaignSend */
     private $campaignSend;
 
     public function setUp(): void
