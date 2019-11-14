@@ -16,7 +16,7 @@ class RouteTest extends TestCase
     /** @test */
     public function it_provides_a_route_macro_to_handle_webhooks()
     {
-        $invalidPayload = $this->getStub('webhookContent');
+        $invalidPayload = $this->getStub('complaintWebhookContent');
 
         $validPayload = $this->addValidSignature($invalidPayload);
 
@@ -28,7 +28,7 @@ class RouteTest extends TestCase
     /** @test */
     public function it_fails_when_using_an_invalid_payload()
     {
-        $invalidPayload = $this->getStub('webhookContent');
+        $invalidPayload = $this->getStub('complaintWebhookContent');
 
         $this
             ->post('mailgun-feedback', $invalidPayload)

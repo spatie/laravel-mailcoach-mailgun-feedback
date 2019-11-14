@@ -22,7 +22,7 @@ class ProcessMailgunWebhookJobTest extends TestCase
 
         $this->webhookCall = WebhookCall::create([
             'name' => 'mailgun',
-            'payload' => $this->getStub('webhookContent'),
+            'payload' => $this->getStub('bounceWebhookContent'),
         ]);
 
         $this->campaignSend = factory(CampaignSend::class)->create([
@@ -31,7 +31,7 @@ class ProcessMailgunWebhookJobTest extends TestCase
     }
 
     /** @test */
-    public function it_processes_a_mailgun_webhook_call()
+    public function it_processes_a_mailgun_bounce_webhook_call()
     {
         $job = new ProcessMailgunWebhookJob($this->webhookCall);
 
@@ -43,9 +43,23 @@ class ProcessMailgunWebhookJobTest extends TestCase
     }
 
     /** @test */
-    public function it_only_saves_when_event_is_a_failure()
+    public function it_processes_a_mailgun_complaint_webhook_call()
     {
-        $data =$this->webhookCall->payload;
+        $this->webhookCall->update(['payload' => $this->getStub('complaintWebhookContent')]);
+
+        $job = new ProcessMailgunWebhookJob($this->webhookCall);
+
+        $job->handle();
+
+        $this->assertEquals(1, CampaignSendFeedbackItem::count());
+        $this->assertEquals(CampaignSendFeedbackType::COMPLAINT, CampaignSendFeedbackItem::first()->type);
+        $this->assertTrue($this->campaignSend->is(CampaignSendFeedbackItem::first()->campaignSend));
+    }
+
+    /** @test */
+    public function it_will_not_handle_unrelated_events()
+    {
+        $data = $this->webhookCall->payload;
         $data['event-data']['event'] = 'success';
 
         $this->webhookCall->update([
