@@ -15,7 +15,7 @@ class ProcessMailgunWebhookJob extends ProcessWebhookJob
         /** @var \Spatie\Mailcoach\Models\CampaignSend $campaignSend */
         $campaignSend = CampaignSend::findByTransportMessageId($eventData['id']);
 
-        if (! $campaignSend) {
+        if (!$campaignSend) {
             return;
         }
 
