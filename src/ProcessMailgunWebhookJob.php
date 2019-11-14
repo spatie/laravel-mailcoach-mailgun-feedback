@@ -12,17 +12,17 @@ class ProcessMailgunWebhookJob extends ProcessWebhookJob
     {
         $payload = $this->webhookCall->payload;
 
-        $messageId = Arr::get($payload, 'event-data.message.headers.message-id');
-
-        if (! $messageId) {
-            return;
-        }
-
         if (Arr::get($payload, 'event-data.event') !== 'failed') {
             return;
         }
 
         if (Arr::get($payload, 'event-data.severity') !== 'permanent') {
+            return;
+        }
+
+        $messageId = Arr::get($payload, 'event-data.message.headers.message-id');
+
+        if (! $messageId) {
             return;
         }
 

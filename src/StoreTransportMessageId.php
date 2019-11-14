@@ -21,6 +21,9 @@ class StoreTransportMessageId
 
         $transportMessageId = $event->message->getHeaders()->get('X-Mailgun-Message-ID')->getFieldBody();
 
+        $transportMessageId = ltrim($transportMessageId, '<');
+        $transportMessageId = rtrim($transportMessageId, '>');
+
         $campaignSend->storeTransportMessageId($transportMessageId);
     }
 }
