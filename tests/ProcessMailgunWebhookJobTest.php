@@ -2,8 +2,9 @@
 
 namespace Spatie\MailcoachMailgunFeedback\Tests;
 
+use Spatie\Mailcoach\Enums\CampaignSendFeedbackType;
 use Spatie\Mailcoach\Models\CampaignSend;
-use Spatie\Mailcoach\Models\CampaignSendBounce;
+use Spatie\Mailcoach\Models\CampaignSendFeedbackItem;
 use Spatie\MailcoachMailgunFeedback\ProcessMailgunWebhookJob;
 use Spatie\WebhookClient\Models\WebhookCall;
 
@@ -25,7 +26,7 @@ class ProcessMailgunWebhookJobTest extends TestCase
         ]);
 
         $this->campaignSend = factory(CampaignSend::class)->create([
-            'transport_message_id' => 'G9Bn5sl1TC6nu79C8C0bwg',
+            'transport_message_id' => '20130503192659.13651.20287@mg.craftremote.com',
         ]);
     }
 
@@ -36,9 +37,9 @@ class ProcessMailgunWebhookJobTest extends TestCase
 
         $job->handle();
 
-        $this->assertEquals(1, CampaignSendBounce::count());
-        $this->assertEquals('permanent', CampaignSendBounce::first()->severity);
-        $this->assertTrue($this->campaignSend->is(CampaignSendBounce::first()->campaignSend));
+        $this->assertEquals(1, CampaignSendFeedbackItem::count());
+        $this->assertEquals(CampaignSendFeedbackType::BOUNCE, CampaignSendFeedbackItem::first()->type);
+        $this->assertTrue($this->campaignSend->is(CampaignSendFeedbackItem::first()->campaignSend));
     }
 
     /** @test */
@@ -55,14 +56,14 @@ class ProcessMailgunWebhookJobTest extends TestCase
 
         $job->handle();
 
-        $this->assertEquals(0, CampaignSendBounce::count());
+        $this->assertEquals(0, CampaignSendFeedbackItem::count());
     }
 
     /** @test */
     public function it_does_nothing_when_it_cannot_find_the_transport_message_id()
     {
         $data = $this->webhookCall->payload;
-        $data['event-data']['id'] = 'some-other-id';
+        $data['event-data']['message']['headers']['message-id'] = 'some-other-id';
 
         $this->webhookCall->update([
             'payload' => $data,
@@ -72,6 +73,6 @@ class ProcessMailgunWebhookJobTest extends TestCase
 
         $job->handle();
 
-        $this->assertEquals(0, CampaignSendBounce::count());
+        $this->assertEquals(0, CampaignSendFeedbackItem::count());
     }
 }
