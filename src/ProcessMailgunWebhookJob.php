@@ -12,37 +12,13 @@ class ProcessMailgunWebhookJob extends ProcessWebhookJob
     {
         $payload = $this->webhookCall->payload;
 
-        $event = Arr::get($payload, 'event-data.event');
-
         if (!$campaignSend = $this->getCampaignSend()) {
             return;
         };
 
-        if ($event === 'failed') {
-            $this->handleBounce($campaignSend, $payload);
+        $mailgunEvent = MailgunEventFactory::createForPayload($payload);
 
-            return;
-        }
-
-        if ($event === 'complained') {
-            $this->handleComplaint($campaignSend, $payload);
-
-            return;
-        }
-    }
-
-    protected function handleBounce(CampaignSend $campaignSend, array $payload)
-    {
-        if (Arr::get($payload, 'event-data.severity') !== 'permanent') {
-            return;
-        }
-
-        $campaignSend->markAsBounced();
-    }
-
-    protected function handleComplaint(CampaignSend $campaignSend)
-    {
-        $campaignSend->complaintReceived();
+        $mailgunEvent->handle($campaignSend);
     }
 
     protected function getCampaignSend(): ?CampaignSend
@@ -52,7 +28,6 @@ class ProcessMailgunWebhookJob extends ProcessWebhookJob
         if (!$messageId) {
             return null;
         }
-
 
         return CampaignSend::findByTransportMessageId($messageId);
     }
