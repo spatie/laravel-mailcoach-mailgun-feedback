@@ -4,7 +4,7 @@ namespace Spatie\MailcoachMailgunFeedback\MailgunEvents;
 
 use Spatie\Mailcoach\Models\CampaignSend;
 
-class Complaint extends MailgunEvent
+class ComplaintEvent extends MailgunEvent
 {
     public function canHandlePayload(): bool
     {

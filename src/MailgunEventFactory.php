@@ -2,20 +2,20 @@
 
 namespace Spatie\MailcoachMailgunFeedback;
 
-use Spatie\MailcoachMailgunFeedback\MailgunEvents\Click;
-use Spatie\MailcoachMailgunFeedback\MailgunEvents\Complaint;
+use Spatie\MailcoachMailgunFeedback\MailgunEvents\ClickEvent;
+use Spatie\MailcoachMailgunFeedback\MailgunEvents\ComplaintEvent;
 use Spatie\MailcoachMailgunFeedback\MailgunEvents\MailgunEvent;
-use Spatie\MailcoachMailgunFeedback\MailgunEvents\Open;
-use Spatie\MailcoachMailgunFeedback\MailgunEvents\Other;
-use Spatie\MailcoachMailgunFeedback\MailgunEvents\PermanentBounce;
+use Spatie\MailcoachMailgunFeedback\MailgunEvents\OpenEvent;
+use Spatie\MailcoachMailgunFeedback\MailgunEvents\OtherEvent;
+use Spatie\MailcoachMailgunFeedback\MailgunEvents\PermanentBounceEvent;
 
 class MailgunEventFactory
 {
     protected static $mailgunEvents = [
-        Click::class,
-        Complaint::class,
-        Open::class,
-        PermanentBounce::class,
+        ClickEvent::class,
+        ComplaintEvent::class,
+        OpenEvent::class,
+        PermanentBounceEvent::class,
     ];
 
     public static function createForPayload(array $payload): MailgunEvent
@@ -28,6 +28,6 @@ class MailgunEventFactory
                 return $mailgunEvent->canHandlePayload();
             });
 
-        return $mailgunEvent ?? new Other($payload);
+        return $mailgunEvent ?? new OtherEvent($payload);
     }
 }

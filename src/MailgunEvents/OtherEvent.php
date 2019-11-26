@@ -4,15 +4,14 @@ namespace Spatie\MailcoachMailgunFeedback\MailgunEvents;
 
 use Spatie\Mailcoach\Models\CampaignSend;
 
-class Open extends MailgunEvent
+class OtherEvent extends MailgunEvent
 {
     public function canHandlePayload(): bool
     {
-        return $this->event === 'opened';
+        return true;
     }
 
     public function handle(CampaignSend $campaignSend)
     {
-        return $campaignSend->registerOpen();
     }
 }

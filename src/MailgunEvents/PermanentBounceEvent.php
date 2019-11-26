@@ -5,7 +5,7 @@ namespace Spatie\MailcoachMailgunFeedback\MailgunEvents;
 use Illuminate\Support\Arr;
 use Spatie\Mailcoach\Models\CampaignSend;
 
-class PermanentBounce extends MailgunEvent
+class PermanentBounceEvent extends MailgunEvent
 {
     public function canHandlePayload(): bool
     {

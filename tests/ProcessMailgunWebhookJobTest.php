@@ -3,6 +3,8 @@
 namespace Spatie\MailcoachMailgunFeedback\Tests;
 
 use Spatie\Mailcoach\Enums\CampaignSendFeedbackType;
+use Spatie\Mailcoach\Models\CampaignLink;
+use Spatie\Mailcoach\Models\CampaignOpen;
 use Spatie\Mailcoach\Models\CampaignSend;
 use Spatie\Mailcoach\Models\CampaignSendFeedbackItem;
 use Spatie\MailcoachMailgunFeedback\ProcessMailgunWebhookJob;
@@ -33,9 +35,7 @@ class ProcessMailgunWebhookJobTest extends TestCase
     /** @test */
     public function it_processes_a_mailgun_bounce_webhook_call()
     {
-        $job = new ProcessMailgunWebhookJob($this->webhookCall);
-
-        $job->handle();
+        (new ProcessMailgunWebhookJob($this->webhookCall))->handle();
 
         $this->assertEquals(1, CampaignSendFeedbackItem::count());
         $this->assertEquals(CampaignSendFeedbackType::BOUNCE, CampaignSendFeedbackItem::first()->type);
@@ -46,10 +46,7 @@ class ProcessMailgunWebhookJobTest extends TestCase
     public function it_processes_a_mailgun_complaint_webhook_call()
     {
         $this->webhookCall->update(['payload' => $this->getStub('complaintWebhookContent')]);
-
-        $job = new ProcessMailgunWebhookJob($this->webhookCall);
-
-        $job->handle();
+        (new ProcessMailgunWebhookJob($this->webhookCall))->handle();
 
         $this->assertEquals(1, CampaignSendFeedbackItem::count());
         $this->assertEquals(CampaignSendFeedbackType::COMPLAINT, CampaignSendFeedbackItem::first()->type);
@@ -57,19 +54,33 @@ class ProcessMailgunWebhookJobTest extends TestCase
     }
 
     /** @test */
+    public function it_processes_a_mailgun_click_webhook_call()
+    {
+        $this->webhookCall->update(['payload' => $this->getStub('clickWebhookContent')]);
+        (new ProcessMailgunWebhookJob($this->webhookCall))->handle();
+
+        $this->assertEquals(1, CampaignLink::count());
+        $this->assertEquals('http://example.com/signup', CampaignLink::first()->link);
+        $this->assertCount(1, CampaignLink::first()->clicks);
+    }
+
+    /** @test */
+    public function it_can_process_a_mailgun_open_webhook_call()
+    {
+        $this->webhookCall->update(['payload' => $this->getStub('openWebhookContent')]);
+        (new ProcessMailgunWebhookJob($this->webhookCall))->handle();
+
+        $this->assertCount(1, $this->campaignSend->campaign->opens);
+    }
+
+    /** @test */
     public function it_will_not_handle_unrelated_events()
     {
-        $data = $this->webhookCall->payload;
-        $data['event-data']['event'] = 'success';
+        $this->webhookCall->update(['payload' => $this->getStub('otherWebhookContent')]);
+        (new ProcessMailgunWebhookJob($this->webhookCall))->handle();
 
-        $this->webhookCall->update([
-            'payload' => $data,
-        ]);
-
-        $job = new ProcessMailgunWebhookJob($this->webhookCall);
-
-        $job->handle();
-
+        $this->assertEquals(0, CampaignLink::count());
+        $this->assertEquals(0, CampaignOpen::count());
         $this->assertEquals(0, CampaignSendFeedbackItem::count());
     }
 
