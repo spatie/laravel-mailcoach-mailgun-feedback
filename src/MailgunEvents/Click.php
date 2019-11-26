@@ -8,11 +8,11 @@ class Click extends MailgunEvent
 {
     public function canHandlePayload(): bool
     {
-        return false;
+        return $this->event === 'clicked';
     }
 
     public function handle(CampaignSend $campaignSend)
     {
-        // TODO: Implement handle() method.
+        $campaignSend->registerClick($this->payload['url']);
     }
 }

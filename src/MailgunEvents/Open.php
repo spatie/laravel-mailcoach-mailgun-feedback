@@ -8,11 +8,11 @@ class Open extends MailgunEvent
 {
     public function canHandlePayload(): bool
     {
-        return false;
+        return $this->event === 'opened';
     }
 
     public function handle(CampaignSend $campaignSend)
     {
-        // TODO: Implement handle() method.
+        return $campaignSend->registerOpen();
     }
 }
