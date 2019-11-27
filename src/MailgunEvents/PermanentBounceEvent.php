@@ -22,6 +22,6 @@ class PermanentBounceEvent extends MailgunEvent
 
     public function handle(CampaignSend $campaignSend)
     {
-        $campaignSend->markAsBounced();
+        $campaignSend->registerBounce();
     }
 }

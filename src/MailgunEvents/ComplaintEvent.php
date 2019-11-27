@@ -13,6 +13,6 @@ class ComplaintEvent extends MailgunEvent
 
     public function handle(CampaignSend $campaignSend)
     {
-        $campaignSend->complaintReceived();
+        $campaignSend->registerComplaint();
     }
 }

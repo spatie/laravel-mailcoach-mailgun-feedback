@@ -30,6 +30,11 @@ class ProcessMailgunWebhookJobTest extends TestCase
         $this->campaignSend = factory(CampaignSend::class)->create([
             'transport_message_id' => '20130503192659.13651.20287@mg.craftremote.com',
         ]);
+
+        $this->campaignSend->campaign->update([
+            'track_opens' => true,
+            'track_clicks' => true,
+        ]);
     }
 
     /** @test */
@@ -60,7 +65,7 @@ class ProcessMailgunWebhookJobTest extends TestCase
         (new ProcessMailgunWebhookJob($this->webhookCall))->handle();
 
         $this->assertEquals(1, CampaignLink::count());
-        $this->assertEquals('http://example.com/signup', CampaignLink::first()->link);
+        $this->assertEquals('http://example.com/signup', CampaignLink::first()->url);
         $this->assertCount(1, CampaignLink::first()->clicks);
     }
 
