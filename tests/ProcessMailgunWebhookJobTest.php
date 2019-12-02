@@ -12,11 +12,9 @@ use Spatie\WebhookClient\Models\WebhookCall;
 
 class ProcessMailgunWebhookJobTest extends TestCase
 {
-    /** @var \Spatie\WebhookClient\Models\WebhookCall */
-    private $webhookCall;
+    private WebhookCall $webhookCall;
 
-    /** @var \Spatie\Mailcoach\Models\CampaignSend */
-    private $campaignSend;
+    private CampaignSend $campaignSend;
 
     public function setUp(): void
     {

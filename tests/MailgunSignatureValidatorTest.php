@@ -5,14 +5,13 @@ namespace Spatie\MailcoachMailgunFeedback\Tests;
 use Illuminate\Http\Request;
 use Spatie\MailcoachMailgunFeedback\MailgunSignatureValidator;
 use Spatie\MailcoachMailgunFeedback\MailgunWebhookConfig;
+use Spatie\WebhookClient\WebhookConfig;
 
 class MailgunSignatureValidatorTest extends TestCase
 {
-    /** @var \Spatie\WebhookClient\WebhookConfig */
-    private $config;
+    private WebhookConfig $config;
 
-    /** @var \App\Support\Mailgun\MailgunSignatureValidator */
-    private $validator;
+    private MailgunSignatureValidator $validator;
 
     public function setUp(): void
     {
