@@ -14,7 +14,7 @@ class MailgunWebhookConfig
 
         return new WebhookConfig([
             'name' => 'mailgun-feedback',
-            'signing_secret' => $config['signing_secret'],
+            'signing_secret' => $config['signing_secret'] ?? '',
             'header_name' => $config['header_name'] ?? 'Signature',
             'signature_validator' => $config['signature_validator'] ?? MailgunSignatureValidator::class,
             'webhook_profile' =>  $config['webhook_profile'] ?? ProcessEverythingWebhookProfile::class,
