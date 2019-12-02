@@ -7,11 +7,9 @@ use Spatie\Mailcoach\Models\CampaignSend;
 
 abstract class MailgunEvent
 {
-    /** @var array */
-    protected $payload;
+    protected array $payload;
 
-    /** @var string */
-    protected $event;
+    protected string $event;
 
     public function __construct(array $payload)
     {

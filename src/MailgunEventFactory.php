@@ -11,7 +11,7 @@ use Spatie\MailcoachMailgunFeedback\MailgunEvents\PermanentBounceEvent;
 
 class MailgunEventFactory
 {
-    protected static $mailgunEvents = [
+    protected static array $mailgunEvents = [
         ClickEvent::class,
         ComplaintEvent::class,
         OpenEvent::class,
@@ -21,12 +21,8 @@ class MailgunEventFactory
     public static function createForPayload(array $payload): MailgunEvent
     {
         $mailgunEvent = collect(static::$mailgunEvents)
-            ->map(function (string $mailgunEventClass) use ($payload) {
-                return new $mailgunEventClass($payload);
-            })
-            ->first(function (MailgunEvent $mailgunEvent) use ($payload) {
-                return $mailgunEvent->canHandlePayload();
-            });
+            ->map(fn (string $mailgunEventClass) => new $mailgunEventClass($payload))
+            ->first(fn (MailgunEvent $mailgunEvent) => $mailgunEvent->canHandlePayload());
 
         return $mailgunEvent ?? new OtherEvent($payload);
     }
