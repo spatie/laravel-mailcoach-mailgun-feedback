@@ -3,7 +3,7 @@
 namespace Spatie\MailcoachMailgunFeedback\MailgunEvents;
 
 use Illuminate\Support\Arr;
-use Spatie\Mailcoach\Models\CampaignSend;
+use Spatie\Mailcoach\Models\Send;
 
 class ClickEvent extends MailgunEvent
 {
@@ -12,10 +12,10 @@ class ClickEvent extends MailgunEvent
         return $this->event === 'clicked';
     }
 
-    public function handle(CampaignSend $campaignSend)
+    public function handle(Send $send)
     {
         $url = Arr::get($this->payload, 'event-data.url');
 
-        $campaignSend->registerClick($url);
+        $send->registerClick($url);
     }
 }

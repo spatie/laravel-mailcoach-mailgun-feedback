@@ -3,7 +3,7 @@
 namespace Spatie\MailcoachMailgunFeedback;
 
 use Illuminate\Support\Arr;
-use Spatie\Mailcoach\Models\CampaignSend;
+use Spatie\Mailcoach\Models\Send;
 use Spatie\WebhookClient\ProcessWebhookJob;
 
 class ProcessMailgunWebhookJob extends ProcessWebhookJob
@@ -12,16 +12,16 @@ class ProcessMailgunWebhookJob extends ProcessWebhookJob
     {
         $payload = $this->webhookCall->payload;
 
-        if (!$campaignSend = $this->getCampaignSend()) {
+        if (!$send = $this->getSend()) {
             return;
         };
 
         $mailgunEvent = MailgunEventFactory::createForPayload($payload);
 
-        $mailgunEvent->handle($campaignSend);
+        $mailgunEvent->handle($send);
     }
 
-    protected function getCampaignSend(): ?CampaignSend
+    protected function getSend(): ?Send
     {
         $messageId = Arr::get($this->webhookCall->payload, 'event-data.message.headers.message-id');
 
@@ -29,6 +29,6 @@ class ProcessMailgunWebhookJob extends ProcessWebhookJob
             return null;
         }
 
-        return CampaignSend::findByTransportMessageId($messageId);
+        return Send::findByTransportMessageId($messageId);
     }
 }

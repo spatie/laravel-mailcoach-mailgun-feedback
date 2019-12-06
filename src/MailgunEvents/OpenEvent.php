@@ -2,7 +2,7 @@
 
 namespace Spatie\MailcoachMailgunFeedback\MailgunEvents;
 
-use Spatie\Mailcoach\Models\CampaignSend;
+use Spatie\Mailcoach\Models\Send;
 
 class OpenEvent extends MailgunEvent
 {
@@ -11,8 +11,8 @@ class OpenEvent extends MailgunEvent
         return $this->event === 'opened';
     }
 
-    public function handle(CampaignSend $campaignSend)
+    public function handle(Send $send)
     {
-        return $campaignSend->registerOpen();
+        return $send->registerOpen();
     }
 }

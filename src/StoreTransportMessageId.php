@@ -8,7 +8,7 @@ class StoreTransportMessageId
 {
     public function handle(MessageSent $event)
     {
-        if (! isset($event->data['campaignSend'])) {
+        if (! isset($event->data['send'])) {
             return;
         }
 
@@ -16,14 +16,14 @@ class StoreTransportMessageId
             return;
         }
 
-        /** @var \Spatie\Mailcoach\Models\CampaignSend $campaignSend */
-        $campaignSend = $event->data['campaignSend'];
+        /** @var \Spatie\Mailcoach\Models\Send $send */
+        $send = $event->data['send'];
 
         $transportMessageId = $event->message->getHeaders()->get('X-Mailgun-Message-ID')->getFieldBody();
 
         $transportMessageId = ltrim($transportMessageId, '<');
         $transportMessageId = rtrim($transportMessageId, '>');
 
-        $campaignSend->storeTransportMessageId($transportMessageId);
+        $send->storeTransportMessageId($transportMessageId);
     }
 }

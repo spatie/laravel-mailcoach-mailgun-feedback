@@ -3,7 +3,7 @@
 namespace Spatie\MailcoachMailgunFeedback\MailgunEvents;
 
 use Illuminate\Support\Arr;
-use Spatie\Mailcoach\Models\CampaignSend;
+use Spatie\Mailcoach\Models\Send;
 
 abstract class MailgunEvent
 {
@@ -20,5 +20,5 @@ abstract class MailgunEvent
 
     abstract public function canHandlePayload(): bool;
 
-    abstract public function handle(CampaignSend $campaignSend);
+    abstract public function handle(Send $send);
 }

@@ -2,11 +2,11 @@
 
 namespace Spatie\MailcoachMailgunFeedback\Tests;
 
-use Spatie\Mailcoach\Enums\CampaignSendFeedbackType;
+use Spatie\Mailcoach\Enums\SendFeedbackType;
 use Spatie\Mailcoach\Models\CampaignLink;
 use Spatie\Mailcoach\Models\CampaignOpen;
-use Spatie\Mailcoach\Models\CampaignSend;
-use Spatie\Mailcoach\Models\CampaignSendFeedbackItem;
+use Spatie\Mailcoach\Models\Send;
+use Spatie\Mailcoach\Models\SendFeedbackItem;
 use Spatie\MailcoachMailgunFeedback\ProcessMailgunWebhookJob;
 use Spatie\WebhookClient\Models\WebhookCall;
 
@@ -14,7 +14,7 @@ class ProcessMailgunWebhookJobTest extends TestCase
 {
     private WebhookCall $webhookCall;
 
-    private CampaignSend $campaignSend;
+    private Send $send;
 
     public function setUp(): void
     {
@@ -25,11 +25,11 @@ class ProcessMailgunWebhookJobTest extends TestCase
             'payload' => $this->getStub('bounceWebhookContent'),
         ]);
 
-        $this->campaignSend = factory(CampaignSend::class)->create([
+        $this->send = factory(Send::class)->create([
             'transport_message_id' => '20130503192659.13651.20287@mg.craftremote.com',
         ]);
 
-        $this->campaignSend->campaign->update([
+        $this->send->campaign->update([
             'track_opens' => true,
             'track_clicks' => true,
         ]);
@@ -40,9 +40,9 @@ class ProcessMailgunWebhookJobTest extends TestCase
     {
         (new ProcessMailgunWebhookJob($this->webhookCall))->handle();
 
-        $this->assertEquals(1, CampaignSendFeedbackItem::count());
-        $this->assertEquals(CampaignSendFeedbackType::BOUNCE, CampaignSendFeedbackItem::first()->type);
-        $this->assertTrue($this->campaignSend->is(CampaignSendFeedbackItem::first()->campaignSend));
+        $this->assertEquals(1, SendFeedbackItem::count());
+        $this->assertEquals(SendFeedbackType::BOUNCE, SendFeedbackItem::first()->type);
+        $this->assertTrue($this->send->is(SendFeedbackItem::first()->send));
     }
 
     /** @test */
@@ -51,9 +51,9 @@ class ProcessMailgunWebhookJobTest extends TestCase
         $this->webhookCall->update(['payload' => $this->getStub('complaintWebhookContent')]);
         (new ProcessMailgunWebhookJob($this->webhookCall))->handle();
 
-        $this->assertEquals(1, CampaignSendFeedbackItem::count());
-        $this->assertEquals(CampaignSendFeedbackType::COMPLAINT, CampaignSendFeedbackItem::first()->type);
-        $this->assertTrue($this->campaignSend->is(CampaignSendFeedbackItem::first()->campaignSend));
+        $this->assertEquals(1, SendFeedbackItem::count());
+        $this->assertEquals(SendFeedbackType::COMPLAINT, SendFeedbackItem::first()->type);
+        $this->assertTrue($this->send->is(SendFeedbackItem::first()->send));
     }
 
     /** @test */
@@ -73,7 +73,7 @@ class ProcessMailgunWebhookJobTest extends TestCase
         $this->webhookCall->update(['payload' => $this->getStub('openWebhookContent')]);
         (new ProcessMailgunWebhookJob($this->webhookCall))->handle();
 
-        $this->assertCount(1, $this->campaignSend->campaign->opens);
+        $this->assertCount(1, $this->send->campaign->opens);
     }
 
     /** @test */
@@ -84,7 +84,7 @@ class ProcessMailgunWebhookJobTest extends TestCase
 
         $this->assertEquals(0, CampaignLink::count());
         $this->assertEquals(0, CampaignOpen::count());
-        $this->assertEquals(0, CampaignSendFeedbackItem::count());
+        $this->assertEquals(0, SendFeedbackItem::count());
     }
 
     /** @test */
@@ -101,6 +101,6 @@ class ProcessMailgunWebhookJobTest extends TestCase
 
         $job->handle();
 
-        $this->assertEquals(0, CampaignSendFeedbackItem::count());
+        $this->assertEquals(0, SendFeedbackItem::count());
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Spatie\MailcoachMailgunFeedback\MailgunEvents;
 
-use Spatie\Mailcoach\Models\CampaignSend;
+use Spatie\Mailcoach\Models\Send;
 
 class OtherEvent extends MailgunEvent
 {
@@ -11,7 +11,7 @@ class OtherEvent extends MailgunEvent
         return true;
     }
 
-    public function handle(CampaignSend $campaignSend)
+    public function handle(Send $send)
     {
     }
 }

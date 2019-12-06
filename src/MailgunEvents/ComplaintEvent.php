@@ -2,7 +2,7 @@
 
 namespace Spatie\MailcoachMailgunFeedback\MailgunEvents;
 
-use Spatie\Mailcoach\Models\CampaignSend;
+use Spatie\Mailcoach\Models\Send;
 
 class ComplaintEvent extends MailgunEvent
 {
@@ -11,8 +11,8 @@ class ComplaintEvent extends MailgunEvent
         return $this->event === 'complained';
     }
 
-    public function handle(CampaignSend $campaignSend)
+    public function handle(Send $send)
     {
-        $campaignSend->registerComplaint();
+        $send->registerComplaint();
     }
 }
