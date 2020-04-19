@@ -89,6 +89,8 @@ class ProcessMailgunWebhookJobTest extends TestCase
         tap($this->send->campaign->opens->first(), function (CampaignOpen $campaignOpen) {
             $this->assertEquals(Carbon::createFromTimestamp(1377047343.042277), $campaignOpen->created_at);
         });
+
+        $this->assertDeleted($this->webhookCall);
     }
 
     /** @test */
