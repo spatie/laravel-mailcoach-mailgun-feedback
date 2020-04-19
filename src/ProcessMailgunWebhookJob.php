@@ -30,6 +30,8 @@ class ProcessMailgunWebhookJob extends ProcessWebhookJob
         $mailgunEvent = MailgunEventFactory::createForPayload($payload);
 
         $mailgunEvent->handle($send);
+
+        $this->webhookCall->delete();
     }
 
     protected function getSend(): ?Send
