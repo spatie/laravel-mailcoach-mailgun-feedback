@@ -4,8 +4,7 @@ namespace Spatie\MailcoachMailgunFeedback\Tests;
 
 use Illuminate\Mail\Events\MessageSent;
 use Spatie\Mailcoach\Domain\Shared\Models\Send;
-use Symfony\Component\Mime\Email;
-use Symfony\Component\Mime\Part\TextPart;
+use Swift_Message;
 
 class StoreTransportMessageIdTest extends TestCase
 {
@@ -13,7 +12,7 @@ class StoreTransportMessageIdTest extends TestCase
     public function it_stores_the_message_id_from_the_transport()
     {
         $pendingSend = Send::factory()->create();
-        $message = (new Email())->setBody(new TextPart('body'));
+        $message = new Swift_Message('Test', 'body');
         $message->getHeaders()->addTextHeader('X-Mailgun-Message-ID', '1234');
 
         event(new MessageSent($message, [
